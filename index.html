@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario HTML</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .form-wrapper {
+            display: none;
+        }
+
+        .form-wrapper.active {
+            display: block;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .forgot-password a {
+            color: aqua;
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .forgot-password a:hover {
+            color: #00ffff;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Formulario de inicio de sesión -->
+        <div class="form-wrapper sign-in active">
+            <form action="login.php" method="post">
+                <h2>¡Inicia Sesión!</h2>
+                <div class="input-group">
+                    <input type="text" id="nombre-login" name="nombre" required>
+                    <label for="nombre-login">Nombre</label>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="contraseña-login" name="contraseña" required>
+                    <label for="contraseña-login">Contraseña</label>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <div class="remember">
+                    <label><input type="checkbox">Recordar</label>
+                </div>
+
+                <button type="submit">Iniciar Sesión</button>
+
+                <div class="forgot-password">
+                    <a href="#" class="forgotPassword-link">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <div class="signUp-link">
+                    <p>No tienes cuenta? <a href="#" class="signUpBtn-link" onclick="showRegister()">¡Regístrate!</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Formulario de registro -->
+        <div class="form-wrapper register" id="register-form">
+            <form action="register.php" method="post">
+                <h2>¡Regístrate!</h2>
+                <div class="input-group">
+                    <input type="text" id="nombre-reg" name="nombre-reg" required>
+                    <label for="nombre-reg">Nombre</label>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="correo" name="correo" required>
+                    <label for="correo">Email</label>
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="telefono-reg" name="telefono-reg" required>
+                    <label for="telefono-reg">Número de Teléfono</label>
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="contraseña-reg" name="contraseña-reg" required>
+                    <label for="contraseña-reg">Contraseña</label>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="remember">
+                    <label><input type="checkbox">  Términos y condiciones</label>
+                </div>
+                <button type="submit">Registrarme</button>
+                <div class="signUp-link">
+                    <p>¿Ya tienes cuenta? <a href="#" class="signUpBtn-link" onclick="showSignIn()">¡Inicia Sesión!</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Formulario de restablecimiento de contraseña -->
+        <div class="form-wrapper reset-password" id="forgot-password-form">
+            <form action="reset_password.php" method="post">
+                <h2>Restablecer Contraseña</h2>
+                <div class="input-group">
+                    <input type="text" id="telefono" name="telefono" required>
+                    <label for="telefono">Número de Teléfono</label>
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <button type="submit">Enviar código</button>
+                <div class="signUp-link">
+                    <p>¿Recordaste tu contraseña? <a href="#" class="signUpBtn-link" onclick="showSignIn()">¡Inicia Sesión!</a>
+                    </p>
+                </div>
+                <div class="go-back">
+            <p><a href="#" class="goBack-link" onclick="showSignIn()">Volver al inicio de sesión</a></p>
+        </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showRegister() {
+            document.querySelector('.sign-in').classList.remove('active');
+            document.querySelector('.register').classList.add('active');
+
+            // Hacer scroll suave hacia el formulario de registro
+            document.getElementById('register-form').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showSignIn() {
+            document.querySelector('.register').classList.remove('active');
+            document.querySelector('.sign-in').classList.add('active');
+            document.querySelector('.reset-password').classList.remove('active');
+        }
+
+        function showForgotPassword() {
+            document.querySelector('.sign-in').classList.remove('active');
+            document.querySelector('.register').classList.remove('active');
+            document.querySelector('.reset-password').classList.add('active');
+
+            // Hacer scroll suave hacia el formulario de restablecimiento de contraseña
+            document.getElementById('forgot-password-form').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Cambiar el enlace de "¿Olvidaste tu contraseña?" para que muestre el formulario de restablecimiento
+        document.querySelector('.forgotPassword-link').addEventListener('click', function (event) {
+            event.preventDefault();
+            showForgotPassword();
+        });
+    </script>
+</body>
+
+</html>
